@@ -39,4 +39,4 @@ jobs:
         with:
           ACCESS_TOKEN: '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'
           BRANCH: gh-page
-          FOLDER: /dist
+          FOLDER: ./dist
