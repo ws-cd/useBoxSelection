@@ -24,10 +24,18 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy React to GitHub Pages
-        uses: bitovi/github-actions-react-to-ghp@v1.2.0
+      - name: Checkout
+        uses: actions/checkout@v2
+        with: 
+          persist-credentials: false
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Publish
+        uses: actions/deploy-pages@v2.0.1
+        with:
+          token: ''
+          artifact_name: dist
