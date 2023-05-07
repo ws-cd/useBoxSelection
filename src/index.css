@@ -1,0 +1,68 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 0.5rem 1rem;
+  overflow: hidden;
+}
+.row::-webkit-scrollbar {
+  width: 8px
+}
+
+.row::-webkit-scrollbar-thumb {
+  background: lightblue;
+  border-radius: 4px
+}
+.cell {
+  --row: 10;
+  --gap: 0.5rem;
+  --size: calc(calc(100% / var(--row)) - calc(var(--gap) * 2));
+  margin: var(--gap);
+  width: var(--size);
+  height: 128px;
+  background-color: lightblue;
+  transition: background-color 500ms;
+  text-align: center;
+  line-height: 128px;
+  user-select: none;
+}
+.cell-selected {
+  background-color: lightgreen;
+}
+.mark {
+  position: absolute;
+  border: 1px solid lightseagreen;
+  background-color: rgba(255, 255, 255, 0.323);
+}
+.number-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
