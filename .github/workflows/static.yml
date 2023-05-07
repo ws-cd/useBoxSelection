@@ -26,7 +26,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # Clean install dependencies (https://docs.npmjs.com/cli/v7/commands/npm-ci)
+      - name: Checkout
+        - uses: actions/checkout@v3
+        - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
       - name : Install dependencies...
         run : npm install
         shell: bash
