@@ -26,10 +26,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # Configure the commit signature to come from github-actions at github-actions@github.com
-      - name : Configure git username and email...
-        run : git config user.name github-actions && git config user.email github-actions@github.com
-        shell: bash
       # Clean install dependencies (https://docs.npmjs.com/cli/v7/commands/npm-ci)
       - name : Install dependencies...
         run : npm install
@@ -37,10 +33,6 @@ jobs:
       # Build the react app
       - name : Build react app...
         run : npm run build
-        shell: bash
-      # Bump the minor version of the react app and create a new tag
-      - name : Bump minor version...
-        run : npm version minor
         shell: bash
       # Add all changes from the work-tree
       - name : Add changes from the working tree...
