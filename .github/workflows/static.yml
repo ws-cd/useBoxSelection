@@ -26,16 +26,31 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with: 
-          persist-credentials: false
-      - name: Install
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Publish
-        uses: actions/deploy-pages@v2.0.1
-        with:
-          token: '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'
-          artifact_name: dist
+      # Configure the commit signature to come from github-actions at github-actions@github.com
+      - name : Configure git username and email...
+        run : git config user.name github-actions && git config user.email github-actions@github.com
+        shell: bash
+      # Clean install dependencies (https://docs.npmjs.com/cli/v7/commands/npm-ci)
+      - name : Install dependencies...
+        run : npm install
+        shell: bash
+      # Build the react app
+      - name : Build react app...
+        run : npm run build
+        shell: bash
+      # Bump the minor version of the react app and create a new tag
+      - name : Bump minor version...
+        run : npm version minor
+        shell: bash
+      # Add all changes from the work-tree
+      - name : Add changes from the working tree...
+        run : git --work-tree build add --all
+        shell: bash
+      # Commit all changes (automatically deploys commit with the current version number via grep)
+      - name : Committ changes...
+        run : git commit -m "Automatically deploying v$(npm version | grep 'site' | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+[^']*")"
+        shell: bash
+      # Push the changes to the gh-pages branch
+      - name : Push changes to gh-pages branch...
+        run : git push origin HEAD:gh-pages --force
+        shell: bash
